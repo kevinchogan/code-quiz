@@ -52,6 +52,20 @@ header {
     padding: 2rem;
 }
 
+.intro-header {
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 1rem;
+}
+
+.intro-text {
+    font-size: 2rem;
+    padding: 2rem;
+    line-height: 150%;
+    text-align: center;
+}
+
 .question {
     font-size: 2.7rem;
     font-weight:700;
@@ -59,16 +73,24 @@ header {
     user-select: none;
 }
 
-.option-button {
+.option-button, .start-button {
     width: 20rem;
-    text-align: left;
     background-color: var(--indigo);
     color: var(--white);
     border: 0;
-    margin: 0.5rem 0rem;
     font-size: 1.5rem;
     padding: 1.2rem 1.5rem;
     border-radius: 10px;
+}
+
+.option-button {
+    text-align: left;
+    margin: 0.5rem 0rem;
+}
+
+.start-button {
+    text-align: center;
+    margin: auto;
 }
 
 .answer-result {
@@ -86,7 +108,7 @@ header {
     cursor:pointer;
 }
 
-.option-button:hover {
+.option-button:hover, .start-button:hover {
     background-color: var(--lavender);
     cursor:pointer;
 }
