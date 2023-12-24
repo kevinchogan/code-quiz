@@ -2,7 +2,9 @@ var questionData = [];
 var quizAreaEl = document.querySelector(".quiz-area");
 var optionButtons = [];
 var startButton = document.querySelector(".start-button");
+var footerEl = document.querySelector("footer");
 var index = 0;
+var score = 0;
 
 function populateQuestions() {
   questionData[0] = {
@@ -34,8 +36,26 @@ function populateQuestions() {
   questionData[2].options[1] = "other arrays";
   questionData[2].options[2] = "booleans";
   questionData[2].options[3] = "all of the above";
+
+  questionData[3] = {
+    question: "Semicolons (;) are required at the end of every statement.",
+    options: [],
+    answer: 1,
+  };
+  questionData[3].options[0] = "true";
+  questionData[3].options[1] = "false";
+
 }
 
+function updateFooter() {
+    let qNumEl = document.querySelector("#question-number")
+    let scoreEl = document.querySelector("#current-score")
+    let scoreString = Math.floor((score / index) * 100) + "%";
+    let qNum = index + 1;
+
+    qNumEl.textContent = "Question " + qNum + " of " + questionData.length;
+    scoreEl.textContent = "Current Score: " + scoreString;
+}
 
 function evalAnswer(event) {
     let element = event.target;
@@ -50,11 +70,13 @@ function evalAnswer(event) {
 
     if (userIndex == realIndex) {
         resultTag.textContent = "Correct!";
+        score++
     } else {
         resultTag.textContent = "Wrong!";
     }
     resultTag.setAttribute("class", "answer-result");
-    quizAreaEl.appendChild(resultTag);         
+    quizAreaEl.appendChild(resultTag);
+    updateFooter();
 }
 
 
@@ -88,9 +110,22 @@ function displayQuestion() {
   }
 }
 
+function makeFooter() {
+    let qTag = document.createElement("div");
+    let sTag = document.createElement("div");
+
+    qTag.textContent = "Question 1 of " + questionData.length;
+    qTag.setAttribute("id", "question-number");
+    sTag.textContent = "";
+    sTag.setAttribute("id", "current-score");
+
+    footerEl.appendChild(qTag);
+    footerEl.appendChild(sTag);
+}
 
 function playQuiz() {
   displayQuestion(index);
+  makeFooter();
 }
 
 
