@@ -1,1 +1,6 @@
-alert("It worked!");
+var questionData = {
+    question,
+    answer,
+    options: []
+}
+
