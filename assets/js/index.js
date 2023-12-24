@@ -1,4 +1,5 @@
 var questionData = [];
+var quizAreaEl = document.querySelector(".quiz-area");
 
 function populateQuestions() {
     questionData[0] = {
@@ -32,5 +33,22 @@ function populateQuestions() {
     questionData[2].options[3] = "all of the above";
 }
 
+function displayQuestion(index) {
+    let oTaG;
+    let qTag = document.createElement("div");
+    qTag.textContent = questionData[index].question;
+    qTag.setAttribute("class", "question");
+    quizAreaEl.appendChild(qTag);
+
+    for (let i = 0; i < questionData[index].options.length; i++) {
+        oTag = document.createElement("button");
+        oTag.textContent = i + 1 + ". " + questionData[index].options[i];
+        oTag.setAttribute("class", "option-button");
+        oTag.setAttribute("id", i);
+        quizAreaEl.appendChild(oTag);
+    }
+}
+
 populateQuestions();
 console.log(questionData);
+displayQuestion(2);
