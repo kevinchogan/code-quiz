@@ -3,6 +3,7 @@
     --indigo: #351E73;
     --black: #020202;
     --white: #FFFFFF;
+    --grey: #B5B5B5;
 }
 
 html {
@@ -46,8 +47,9 @@ header {
     flex-direction: column;   
     justify-content: space-between;
     align-items: left;
-    max-width: 60rem;
+    max-width: 100rem;
     margin: auto;
+    padding: 2rem;
 }
 
 .question {
@@ -67,6 +69,16 @@ header {
     font-size: 1.5rem;
     padding: 1.2rem 1.5rem;
     border-radius: 10px;
+}
+
+.answer-result {
+    font-size: 2.5rem;
+    color: var(--grey);
+    border-top: solid var(--grey);
+    margin-top: 2rem;
+    font-style:italic;
+    line-height: 150%;
+    padding-left: 1rem;
 }
 
 .high-score-button:hover {
