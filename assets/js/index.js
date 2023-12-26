@@ -7,6 +7,7 @@ var optionButtons = [];
 var highScoreData = [];
 var index = 0;
 var score = 0;
+let timeLeft = 60;
 
 function calcScore() {
   let scoreString = Math.floor((score / index) * 100) + "%";
@@ -38,6 +39,21 @@ function addHighScore() {
   );
   localStorage.setItem("highScores", JSON.stringify(highScoreData));
   displayHighScores();
+}
+
+function countdown() {
+  let timerEl = document.querySelector(".timer");  
+
+  var timeInterval = setInterval(function () {
+    timerEl.textContent = "Time: " + timeLeft;
+    if (timeLeft > 0) {
+      timeLeft--;
+    } else {
+      clearInterval(timeInterval);
+      timerEl.textContent = "";
+      displayEnterName();
+    }
+  }, 1000);
 }
 
 function populateQuestions() {
@@ -166,7 +182,7 @@ function displayHighScores() {
   hsbTag.appendChild(gbbTag);
   hsbTag.appendChild(cbTag);
 
-  if (index < questionData.length) {
+  if (timeLeft > 0) {
     gbbTag.addEventListener("click", displayQuestion);
   } else {
     gbbTag.addEventListener("click", displayIntro);
@@ -190,6 +206,9 @@ function displayEnterName() {
   let submitTag = document.createElement("button");
 
   clearElement(quizAreaEl);
+  clearElement(headerEl);
+  clearElement(footerEl);
+  timeLeft = 0;
 
   // Add text to tags
   headerTag.textContent = "All done!";
@@ -232,6 +251,11 @@ function evalAnswer(event) {
     resultTag.textContent = "Correct!";
     score++;
   } else {
+    if (timeLeft > 10) {
+      timeLeft-=10;
+    } else {
+      timeLeft = 0;
+    }
     resultTag.textContent = "Wrong!";
   }
 
@@ -284,7 +308,6 @@ function makeHeader() {
   clearElement(headerEl);
 
   hsbTag.textContent = "View high scores";
-  timerTag.textContent = "Time: 0";
 
   hsbTag.setAttribute("class", "high-score-button");
   timerTag.setAttribute("class", "timer");
@@ -318,6 +341,7 @@ function makeFooter() {
 }
 
 function playQuiz() {
+  countdown();
   displayQuestion(index);
   makeFooter();
 }
