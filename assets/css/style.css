@@ -17,7 +17,8 @@ body {
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-header, footer {
+header, 
+footer {
  display: flex;
  flex-direction: row;   
  justify-content: space-between;
@@ -26,7 +27,9 @@ header, footer {
 }
 
 
-footer, .high-score-button, .timer {
+footer, 
+.high-score-button, 
+.timer {
     text-decoration: none;
     background-color: var(--white);
     padding: 2.5rem;
@@ -80,25 +83,40 @@ h1 {
     user-select: none;
 }
 
+.high-score-buttons {
+    margin: 1rem 0 0 3rem;
+}
+
 .option-button, 
-.start-button {
-    width: 20rem;
+.start-button,
+.go-back-button,
+.clear-button {
     background-color: var(--indigo);
     color: var(--white);
     border: 0;
     font-size: 1.5rem;
-    padding: 1.2rem 1.5rem;
     border-radius: 10px;
 }
 
 .option-button {
+    width: 20rem;
     text-align: left;
     margin: 0.5rem 0rem;
+    padding: 1.2rem 1.5rem;
 }
 
 .start-button {
+    width: 20rem;
     text-align: center;
     margin: 1rem auto;
+    padding: 1.2rem 1.5rem;
+}
+
+.go-back-button,
+.clear-button {
+    text-align: center;
+    padding: 0.7rem 1.5rem;
+    margin-right: 1rem;
 }
 
 .answer-result {
@@ -111,7 +129,8 @@ h1 {
     padding-left: 1rem;
 }
 
-.enter-name, .game-over-text {
+.enter-name, 
+.game-over-text {
     line-height: 200%;
     font-size: 2rem;
     font-weight: 400;
@@ -137,7 +156,7 @@ h1 {
     line-height: 160%;
 }
 
-.enter-name [value="Submit"] {
+.enter-name #submit-button {
     width: 10rem;
     background-color: var(--indigo);
     color: var(--white);
@@ -148,6 +167,22 @@ h1 {
     margin-left: 1rem;
 }
 
+.high-score-list {
+    font-size: 2rem;
+    padding-left: 3rem;
+}
+
+.high-score-list li {
+    background-color: var(--lavender);
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+}
+
+
+.new-line {
+    font-weight: 700;
+}
+
 .high-score-button:hover {
     text-decoration: underline;
     cursor:pointer;
@@ -155,7 +190,9 @@ h1 {
 
 .option-button:hover, 
 .start-button:hover,
-.enter-name [value="Submit"]:hover {
+.enter-name #submit-button:hover,
+.go-back-button:hover,
+.clear-button:hover {
     background-color: var(--plum);
     cursor:pointer;
 }
