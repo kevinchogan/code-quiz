@@ -7,10 +7,15 @@ var optionButtons = [];
 var highScoreData = [];
 var index = 0;
 var score = 0;
-let timeLeft = 60;
+let timeLeft;
 
 function calcScore() {
   let scoreString = Math.floor((score / index) * 100) + "%";
+  return scoreString;
+}
+
+function calcFinalScore() {
+  let scoreString = Math.floor((score / questionData.length) * 100) + "%";
   return scoreString;
 }
 
@@ -30,7 +35,7 @@ function addHighScore() {
   highScoreData.push({
     name: userNameInput.value.trim(),
     score: score,
-    scorePct: calcScore(),
+    scorePct: calcFinalScore(),
     isNew: true,
   });
 
@@ -51,7 +56,9 @@ function countdown() {
     } else {
       clearInterval(timeInterval);
       timerEl.textContent = "";
-      displayEnterName();
+      if (index < questionData.length) {
+        displayEnterName();
+      }
     }
   }, 1000);
 }
@@ -115,6 +122,7 @@ function displayIntro() {
 
   clearElement(quizAreaEl);
   clearElement(footerEl);
+  makeHeader();
   index = 0;
   score = 0;
 
@@ -213,7 +221,7 @@ function displayEnterName() {
   // Add text to tags
   headerTag.textContent = "All done!";
   scoreTag.textContent =
-    "Your final score is " + score + " (" + calcScore() + ").";
+    "Your final score is " + score + " (" + calcFinalScore() + ").";
   labelTag.textContent = "Enter name: ";
   submitTag.textContent = "Submit";
 
@@ -341,11 +349,11 @@ function makeFooter() {
 }
 
 function playQuiz() {
+  timeLeft = 60;
   countdown();
   displayQuestion(index);
   makeFooter();
 }
 
 populateQuestions();
-makeHeader();
 displayIntro();

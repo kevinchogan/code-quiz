@@ -183,6 +183,10 @@ h1 {
     font-weight: 700;
 }
 
+.game-over-header {
+    margin-top: 8rem;
+}
+
 .high-score-button:hover {
     text-decoration: underline;
     cursor:pointer;
