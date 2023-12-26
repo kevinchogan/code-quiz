@@ -13,13 +13,12 @@ function calcScore() {
   return scoreString;
 }
 
-
 function addHighScore() {
   var userNameInput = document.querySelector("#user-name");
 
   getHighScores();
 
-  if (highScoreData.length >= 20)  {
+  if (highScoreData.length >= 20) {
     highScoreData.pop();
   }
 
@@ -31,14 +30,15 @@ function addHighScore() {
     name: userNameInput.value.trim(),
     score: score,
     scorePct: calcScore(),
-    isNew: true
-  })
+    isNew: true,
+  });
 
-  highScoreData.sort((p1, p2) => (p1.score < p2.score) ? 1 : (p1.score > p2.score) ? -1 : 0);
-  localStorage.setItem("highScores", JSON.stringify(highScoreData))
+  highScoreData.sort((p1, p2) =>
+    p1.score < p2.score ? 1 : p1.score > p2.score ? -1 : 0
+  );
+  localStorage.setItem("highScores", JSON.stringify(highScoreData));
   displayHighScores();
 }
-
 
 function populateQuestions() {
   // Question 0
@@ -47,7 +47,7 @@ function populateQuestions() {
       "A very useful tool used during development and debugging for printing content to the debugger is:",
     options: [],
     answer: 3,
-  }
+  };
   questionData[0].options[0] = "JavaScript";
   questionData[0].options[1] = "terminal/bash";
   questionData[0].options[2] = "for loops";
@@ -59,7 +59,7 @@ function populateQuestions() {
       "The condition of an if/else statement is enclosed with ___________.",
     options: [],
     answer: 2,
-  }
+  };
   questionData[1].options[0] = "quotes";
   questionData[1].options[1] = "curly brackets";
   questionData[1].options[2] = "parentheses";
@@ -70,7 +70,7 @@ function populateQuestions() {
     question: "Arrays in JavaScript can be used to store:",
     options: [],
     answer: 3,
-  }
+  };
   questionData[2].options[0] = "numbers and strings";
   questionData[2].options[1] = "other arrays";
   questionData[2].options[2] = "booleans";
@@ -81,19 +81,16 @@ function populateQuestions() {
     question: "Semicolons (;) are required at the end of every statement.",
     options: [],
     answer: 1,
-  }
+  };
   questionData[3].options[0] = "true";
   questionData[3].options[1] = "false";
-
 }
-
 
 function clearElement(element) {
   while (element.hasChildNodes()) {
     element.removeChild(element.firstChild);
   }
 }
-
 
 function displayIntro() {
   let headerTag = document.createElement("h1");
@@ -106,7 +103,8 @@ function displayIntro() {
   score = 0;
 
   headerTag.textContent = "Coding Quiz Challenge";
-  itTag.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
+  itTag.textContent =
+    "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
   sbTag.textContent = "Start Quiz";
 
   headerTag.setAttribute("class", "intro-header");
@@ -117,13 +115,13 @@ function displayIntro() {
   quizAreaEl.appendChild(itTag);
   quizAreaEl.appendChild(sbTag);
 
-  sbTag.addEventListener("click", playQuiz)
+  sbTag.addEventListener("click", playQuiz);
 }
 
 function getHighScores() {
   let storedData = JSON.parse(localStorage.getItem("highScores"));
 
-  if (!(!storedData)) {
+  if (!!storedData) {
     highScoreData = storedData;
   } else {
     highScoreData = [];
@@ -138,7 +136,6 @@ function displayHighScores() {
   let gbbTag = document.createElement("button");
   let cbTag = document.createElement("button");
 
-
   getHighScores();
   clearElement(quizAreaEl);
   clearElement(footerEl);
@@ -146,8 +143,8 @@ function displayHighScores() {
   headerTag.textContent = "High Scores";
   gbbTag.textContent = "Go back";
   cbTag.textContent = "Clear high scores";
-  
-  hslTag.setAttribute("class","high-score-list");
+
+  hslTag.setAttribute("class", "high-score-list");
   hsbTag.setAttribute("class", "high-score-buttons");
   gbbTag.setAttribute("class", "go-back-button");
   cbTag.setAttribute("class", "clear-button");
@@ -161,7 +158,8 @@ function displayHighScores() {
     if (highScoreData[i].isNew) {
       hslLineTag.setAttribute("class", "new-line");
     }
-    hslLineTag.textContent = highScoreData[i].name + " - " + highScoreData[i].score;
+    hslLineTag.textContent =
+      highScoreData[i].name + " - " + highScoreData[i].score + " (" + highScoreData[i].scorePct + ")";
     hslTag.appendChild(hslLineTag);
   }
 
@@ -169,11 +167,11 @@ function displayHighScores() {
   hsbTag.appendChild(cbTag);
 
   if (index < questionData.length) {
-    gbbTag.addEventListener("click", displayQuestion);  
+    gbbTag.addEventListener("click", displayQuestion);
   } else {
     gbbTag.addEventListener("click", displayIntro);
   }
-  
+
   cbTag.addEventListener("click", clearHighScores);
 }
 
@@ -182,8 +180,6 @@ function clearHighScores() {
 
   displayHighScores();
 }
-
-
 
 function displayEnterName() {
   let headerTag = document.createElement("h1");
@@ -210,7 +206,7 @@ function displayEnterName() {
   textInputTag.setAttribute("type", "game-over-header");
   textInputTag.setAttribute("id", "user-name");
   submitTag.setAttribute("id", "submit-button");
-  
+
   // Add major tags to HTML
   quizAreaEl.appendChild(headerTag);
   quizAreaEl.appendChild(scoreTag);
@@ -224,7 +220,6 @@ function displayEnterName() {
   let scoreSubmitButton = document.querySelector("#submit-button");
   scoreSubmitButton.addEventListener("click", addHighScore);
 }
-
 
 function evalAnswer(event) {
   let element = event.target;
@@ -253,7 +248,6 @@ function evalAnswer(event) {
   quizAreaEl.appendChild(resultTag);
 }
 
-
 function displayQuestion() {
   let oTag;
   let qTag = document.createElement("div");
@@ -273,7 +267,6 @@ function displayQuestion() {
     oTag.setAttribute("class", "option-button");
     oTag.setAttribute("data-index", i);
     quizAreaEl.appendChild(oTag);
-
   }
 
   // Add event listeners for answer buttons
@@ -285,8 +278,8 @@ function displayQuestion() {
 }
 
 function makeHeader() {
-  let hsbTag = document.createElement("button")
-  let timerTag = document.createElement("div")
+  let hsbTag = document.createElement("button");
+  let timerTag = document.createElement("div");
 
   clearElement(headerEl);
 
@@ -302,20 +295,18 @@ function makeHeader() {
   hsbTag.addEventListener("click", displayHighScores);
 }
 
-
 function makeFooter() {
   let qTag = document.createElement("div");
   let sTag = document.createElement("div");
-  let curQuestion  = index + 1
+  let curQuestion = index + 1;
 
   clearElement(footerEl);
 
   // Set up text for question counter
   qTag.textContent = "Question " + curQuestion + " of " + questionData.length;
   if (index > 0) {
-    sTag.textContent = "Current Score: " + calcScore();  
+    sTag.textContent = "Current Score: " + calcScore();
   }
-  
 
   // Set attributes for each tag
   qTag.setAttribute("id", "question-number");
@@ -326,15 +317,11 @@ function makeFooter() {
   footerEl.appendChild(sTag);
 }
 
-
 function playQuiz() {
   displayQuestion(index);
   makeFooter();
 }
 
-
-
 populateQuestions();
 makeHeader();
 displayIntro();
-
