@@ -47,15 +47,68 @@ function populateQuestions() {
 
 }
 
-function updateFooter() {
-    let qNumEl = document.querySelector("#question-number")
-    let scoreEl = document.querySelector("#current-score")
-    let scoreString = Math.floor((score / index) * 100) + "%";
-    let qNum = index + 1;
 
-    qNumEl.textContent = "Question " + qNum + " of " + questionData.length;
-    scoreEl.textContent = "Current Score: " + scoreString;
+function clearElement(element) {
+    while (element.hasChildNodes()) {
+        element.removeChild(element.firstChild);
+    }
 }
+
+
+function calcScore() {
+    let scoreString = Math.floor((score / index) * 100) + "%";
+    return(scoreString);
+}
+
+
+function displayEnterName() {
+    let headerTag = document.createElement("h1");
+    let scoreTag = document.createElement("div");
+    let formTag = document.createElement("form");
+    let labelTag = document.createElement("label");
+    let textInputTag = document.createElement("input");
+    let submitTag = document.createElement("input");
+
+    clearElement(quizAreaEl);
+
+    headerTag.textContent = "All done!";
+    scoreTag.textContent = "Your final score is " + score + " (" + calcScore() + ").";
+    labelTag.textContent = "Enter name: ";
+
+    headerTag.setAttribute("class", "game-over-header");
+    scoreTag.setAttribute("class", "game-over-text");
+    formTag.setAttribute("class", "enter-name");
+    labelTag.setAttribute("for", "userName");
+    textInputTag.setAttribute("type", "game-over-header");
+    textInputTag.setAttribute("id", "user-name");
+    submitTag.setAttribute("type", "submit");
+    submitTag.setAttribute("value", "Submit");
+
+
+    quizAreaEl.appendChild(headerTag);
+    quizAreaEl.appendChild(scoreTag);
+    quizAreaEl.appendChild(formTag);
+
+    let formEl = document.querySelector(".enter-name");
+    formEl.appendChild(labelTag);
+    formEl.appendChild(textInputTag);
+    formEl.appendChild(submitTag);  
+}
+
+
+function updateFooter() {
+    let qNumEl = document.querySelector("#question-number");
+    let scoreEl = document.querySelector("#current-score");
+    let qNum;
+
+    qNum = index;
+    if (index < questionData.length) {
+        qNum++
+    }
+    qNumEl.textContent = "Question " + qNum + " of " + questionData.length;
+    scoreEl.textContent = "Current Score: " + calcScore();
+}
+
 
 function evalAnswer(event) {
     let element = event.target;
@@ -63,17 +116,20 @@ function evalAnswer(event) {
     let realIndex = questionData[index].answer;
     let resultTag = document.createElement("div");
 
-    index++
-    if (index < questionData.length) {
-        displayQuestion(index);
-    }
-
     if (userIndex == realIndex) {
         resultTag.textContent = "Correct!";
         score++
     } else {
         resultTag.textContent = "Wrong!";
     }
+
+    index++
+    if (index < questionData.length) {
+        displayQuestion(index);
+    } else {
+        displayEnterName();
+    }
+
     resultTag.setAttribute("class", "answer-result");
     quizAreaEl.appendChild(resultTag);
     updateFooter();
@@ -84,10 +140,7 @@ function displayQuestion() {
   let oTag;
   let qTag = document.createElement("div");
 
-  //remove all elements from the quiz area
-  while (quizAreaEl.hasChildNodes()) {
-    quizAreaEl.removeChild(quizAreaEl.firstChild);
-  }
+  clearElement(quizAreaEl);
 
   //add the question
   qTag.textContent = questionData[index].question;
@@ -110,6 +163,7 @@ function displayQuestion() {
   }
 }
 
+
 function makeFooter() {
     let qTag = document.createElement("div");
     let sTag = document.createElement("div");
@@ -122,6 +176,7 @@ function makeFooter() {
     footerEl.appendChild(qTag);
     footerEl.appendChild(sTag);
 }
+
 
 function playQuiz() {
   displayQuestion(index);

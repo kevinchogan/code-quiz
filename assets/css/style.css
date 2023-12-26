@@ -1,5 +1,6 @@
 :root {
-    --lavender: #B95FE4;
+    --plum: #B95FE4;
+    --lavender: #D9D3E7;
     --indigo: #351E73;
     --black: #020202;
     --white: #FFFFFF;
@@ -34,8 +35,18 @@ footer, .high-score-button, .timer {
     font-weight: 500;
 }
 
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    padding: 1rem;
+}
+
+.intro-header {
+    text-align: center;
+}
+
 .high-score-button {
-    color: var(--lavender);
+    color: var(--plum);
 }
 
 .timer {
@@ -48,17 +59,11 @@ footer, .high-score-button, .timer {
     flex-direction: column;   
     justify-content:baseline;
     align-items: left;
-    max-width: 100rem;
+    width: 67%;
+    /* max-width: 100rem; */
     min-height: 40rem;
     margin: auto;
     padding: 2rem;
-}
-
-.intro-header {
-    font-size: 3rem;
-    font-weight: 700;
-    text-align: center;
-    padding: 1rem;
 }
 
 .intro-text {
@@ -75,7 +80,8 @@ footer, .high-score-button, .timer {
     user-select: none;
 }
 
-.option-button, .start-button {
+.option-button, 
+.start-button {
     width: 20rem;
     background-color: var(--indigo);
     color: var(--white);
@@ -105,12 +111,51 @@ footer, .high-score-button, .timer {
     padding-left: 1rem;
 }
 
+.enter-name, .game-over-text {
+    line-height: 200%;
+    font-size: 2rem;
+    font-weight: 400;
+    padding-left: 1rem;
+}
+
+
+.enter-name {
+    display:flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+}
+
+.enter-name [for="userName"] {
+    padding-bottom:  0.5rem;
+}
+
+.enter-name #user-name {
+    border: 1px solid var(--grey);
+    font-size: 2rem;
+    margin-left: 1rem;
+    line-height: 160%;
+}
+
+.enter-name [value="Submit"] {
+    width: 10rem;
+    background-color: var(--indigo);
+    color: var(--white);
+    border: 0;
+    font-size: 1.5rem;
+    padding: 0.7rem 0;
+    border-radius: 8px;
+    margin-left: 1rem;
+}
+
 .high-score-button:hover {
     text-decoration: underline;
     cursor:pointer;
 }
 
-.option-button:hover, .start-button:hover {
-    background-color: var(--lavender);
+.option-button:hover, 
+.start-button:hover,
+.enter-name [value="Submit"]:hover {
+    background-color: var(--plum);
     cursor:pointer;
 }
