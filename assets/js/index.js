@@ -244,8 +244,7 @@ function displayEnterName() {
   formTag.appendChild(textInputTag);
   formTag.appendChild(submitTag);
 
-  let scoreSubmitButton = document.querySelector("#submit-button");
-  scoreSubmitButton.addEventListener("click", addHighScore);
+  submitTag.addEventListener("click", addHighScore);
 }
 
 function evalAnswer(event) {
@@ -253,6 +252,7 @@ function evalAnswer(event) {
   let userIndex = element.getAttribute("data-index");
   let realIndex = questionData[index].answer;
   let resultTag = document.createElement("div");
+  let timerEl = document.querySelector(".timer"); 
 
   // Evaluate if question is correct or not
   if (userIndex == realIndex) {
@@ -261,6 +261,7 @@ function evalAnswer(event) {
   } else {
     if (timeLeft > 10) {
       timeLeft-=10;
+      timerEl.textContent = "Time: " + timeLeft;
     } else {
       timeLeft = 0;
     }
@@ -299,13 +300,7 @@ function displayQuestion() {
     oTag.setAttribute("class", "option-button");
     oTag.setAttribute("data-index", i);
     quizAreaEl.appendChild(oTag);
-  }
-
-  // Add event listeners for answer buttons
-  optionButtons = document.querySelectorAll(".option-button");
-
-  for (let i = 0; i < questionData[index].options.length; i++) {
-    optionButtons[i].addEventListener("click", evalAnswer);
+    oTag.addEventListener("click", evalAnswer);
   }
 }
 
