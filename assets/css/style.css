@@ -98,7 +98,7 @@ h1 {
 }
 
 .option-button {
-    width: 20rem;
+    width: 23.5rem;
     text-align: left;
     margin: 0.5rem 0rem;
     padding: 1.2rem 1.5rem;
@@ -215,6 +215,7 @@ h1 {
     justify-content:center;
     align-items: center;
   }
+
   .enter-name #submit-button {
     margin-top: 1rem;
   }
