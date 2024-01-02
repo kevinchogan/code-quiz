@@ -28,7 +28,9 @@ function calcFinalScore() {
 /* === addHighScore ===
 Adds latest score to the high score list and stores locally.
 === addHighScore ===*/
-function addHighScore() {
+function addHighScore(event) {
+  event.preventDefault();
+
   let userNameInput = document.querySelector("#user-name");
   // Get high scores from local storage
   getHighScores();
